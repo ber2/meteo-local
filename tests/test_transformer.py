@@ -38,12 +38,11 @@ def test_current_temperature_min_max_are_ordered(current_temp):
         ("trend", pytest.approx(-1.1)),
         ("feels_like", 10.4),
         ("max", 12.7),
-        ("max_time", dt.time(16,30)),
+        ("max_time", dt.time(16, 30)),
         ("min", 8.5),
-        ("min_time", dt.time(9,15)),
-    ]
+        ("min_time", dt.time(9, 15)),
+    ],
 )
 def test_current_temperature_values(name, expected_value, current_temp):
     actual_value = getattr(current_temp, name)
     assert expected_value == actual_value
-

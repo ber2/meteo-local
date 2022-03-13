@@ -82,8 +82,9 @@ class CurrentRain:
     intensity: float
 
 
-
-def get_max_min_time(indexing_feature: str, value_feature: str, data: pd.DataFrame) -> MaxMinTime:
+def get_max_min_time(
+    indexing_feature: str, value_feature: str, data: pd.DataFrame
+) -> MaxMinTime:
     s = data.set_index(indexing_feature)[value_feature]
     return MaxMinTime(s.max(), s.idxmax().time(), s.min(), s.idxmin().time())
 
@@ -109,7 +110,7 @@ def only_one_day(df: pd.DataFrame, date: dt.date = dt.date.today()) -> pd.DataFr
     return df[mask].copy()
 
 
-def current_temperature(df: pd.DataFrame, date = dt.date.today()) -> CurrentTemperature:
+def current_temperature(df: pd.DataFrame, date=dt.date.today()) -> CurrentTemperature:
     df_today = only_one_day(df, date)
 
     s_last = last_entry("timestamp", df_today)
@@ -123,24 +124,20 @@ def current_temperature(df: pd.DataFrame, date = dt.date.today()) -> CurrentTemp
         mmd.max,
         mmd.max_time,
         mmd.min,
-        mmd.min_time
+        mmd.min_time,
     )
 
 
-def current_humidity(df: pd.DataFrame, date = dt.date.today()) -> CurrentHumidity:
+def current_humidity(df: pd.DataFrame, date=dt.date.today()) -> CurrentHumidity:
     df_today = only_one_day(df, date)
     s_last = last_entry("timestamp", df_today)
     mmd = get_max_min_time("timestamp", "humidity", df_today)
     return CurrentHumidity(
-        s_last.humidity,
-        mmd.max,
-        mmd.max_time,
-        mmd.min,
-        mmd.min_time
+        s_last.humidity, mmd.max, mmd.max_time, mmd.min, mmd.min_time
     )
 
 
-def current_pressure(df: pd.DataFrame, date = dt.date.today()) -> CurrentPressure:
+def current_pressure(df: pd.DataFrame, date=dt.date.today()) -> CurrentPressure:
     df_today = only_one_day(df, date)
 
     s_last = last_entry("timestamp", df_today)
@@ -148,12 +145,7 @@ def current_pressure(df: pd.DataFrame, date = dt.date.today()) -> CurrentPressur
     mmd = get_max_min_time("timestamp", "pressure", df_today)
 
     return CurrentPressure(
-        s_last.pressure,
-        trend,
-        mmd.max,
-        mmd.max_time,
-        mmd.min,
-        mmd.min_time
+        s_last.pressure, trend, mmd.max, mmd.max_time, mmd.min, mmd.min_time
     )
 
 
@@ -174,9 +166,4 @@ def current_rain(df: pd.DataFrame, date: dt.date = dt.date.today()) -> CurrentRa
     total_rain = df.rain.sum()
     s_last = last_entry("timestamp", df)
     intensity = s_last.rain_intensity
-    return CurrentRain(
-        rain_today,
-        rain_yesterday,
-        total_rain,
-        intensity
-    )
+    return CurrentRain(rain_today, rain_yesterday, total_rain, intensity)

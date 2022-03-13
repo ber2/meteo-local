@@ -30,11 +30,27 @@ class Plotter:
         d["hour"] = d.timestamp.dt.hour
         d_agg = d.groupby("hour").rain.agg("sum").reset_index()
 
-        return st.plotly_chart(px.bar(d_agg, x="hour", y="rain", title=f"Pluja {date.isoformat()}", labels = {"hour": "Hora", "rain": "Pluja (mm)"}))
+        return st.plotly_chart(
+            px.bar(
+                d_agg,
+                x="hour",
+                y="rain",
+                title=f"Pluja {date.isoformat()}",
+                labels={"hour": "Hora", "rain": "Pluja (mm)"},
+            )
+        )
 
     def rain_daily_bar_plot(self):
         d = self.df.copy()
         d["date"] = d.timestamp.dt.date
         d_agg = d.groupby("date").rain.agg("sum").reset_index()
 
-        return st.plotly_chart(px.bar(d_agg, x="date", y="rain", title="Pluja els darrers 7 dies", labels = {"date": "Data", "rain": "Pluja (mm)"}))
+        return st.plotly_chart(
+            px.bar(
+                d_agg,
+                x="date",
+                y="rain",
+                title="Pluja els darrers 7 dies",
+                labels={"date": "Data", "rain": "Pluja (mm)"},
+            )
+        )
