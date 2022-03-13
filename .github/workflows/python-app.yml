@@ -26,7 +26,7 @@ jobs:
         pytest -v --cov=meteobeguda
     - name: MyPy
       run: |
-        mypy meteobeguda
+        mypy --ignore-missing-imports meteobeguda
     - name: flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
