@@ -36,3 +36,6 @@ jobs:
     - name: Bandit
       run: |
         bandit .
+    - name: Black
+      run: |
+        black --check .
