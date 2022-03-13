@@ -30,8 +30,7 @@ def extract(lookback: int = 1) -> None:
     df = parse_response(raw)
     parse_timestamps(df)
 
-    dates = [dt.date.today() - dt.timedelta(k)
-             for k in range(1, lookback+1)]
+    dates = [dt.date.today() - dt.timedelta(k) for k in range(1, lookback + 1)]
     for date in dates:
         df_one_day = only_one_day(df, date)
         df_one_day.to_parquet(f"data/meteobeguda-{date.isoformat()}.parquet")
@@ -39,4 +38,3 @@ def extract(lookback: int = 1) -> None:
 
 if __name__ == "__main__":
     app()
-

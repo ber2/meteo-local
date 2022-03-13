@@ -10,10 +10,9 @@ from meteobeguda.transformer import only_one_day
 def eight_days():
     return pd.read_parquet("tests/resources/eight_days.parquet")
 
+
 @pytest.mark.parametrize(
-    "date",
-    [dt.date(2022, 3, 12) - dt.timedelta(k)
-     for k in range(8)]
+    "date", [dt.date(2022, 3, 12) - dt.timedelta(k) for k in range(8)]
 )
 def test_only_one_day(date, eight_days):
 

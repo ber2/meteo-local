@@ -35,7 +35,7 @@ COLUMNS = {
     "wind_direction_degrees": np.dtype("float64"),
     "tx_wind": np.dtype("int64"),
     "iss_reception": np.dtype("int64"),
-    "arc_interior": np.dtype("float64")
+    "arc_interior": np.dtype("float64"),
 }
 
 
@@ -48,11 +48,10 @@ def parse_response(raw: bytes) -> pd.DataFrame:
         encoding="latin1",
         names=COLUMNS.keys(),
         index_col=False,
-        dtype=COLUMNS
+        dtype=COLUMNS,
     )
 
 
 def parse_timestamps(data: pd.DataFrame) -> None:
     data["timestamp"] = pd.to_datetime(data["date"] + " " + data["time"], dayfirst=True)
     data.drop(["date", "time"], axis=1, inplace=True)
-
