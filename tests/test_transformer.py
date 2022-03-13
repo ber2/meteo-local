@@ -4,7 +4,7 @@ from unittest import mock
 import pytest
 import pandas as pd
 
-from meteobeguda.transformer import only_one_day, select_temperature, current_temperature
+from meteobeguda.transformer import only_one_day, current_temperature
 
 
 @pytest.fixture
@@ -20,21 +20,6 @@ def test_only_one_day(date, eight_days):
     result = only_one_day(eight_days, date)
     assert result.timestamp.dt.date.nunique() == 1
     assert date in result.timestamp.dt.date.unique()
-
-
-@pytest.fixture
-def selected_temperature(eight_days):
-    return select_temperature(eight_days)
-
-
-def test_select_temperature_picks_only_temperature_and_timestamp(selected_temperature):
-    expected_columns = ["timestamp", "temperature"]
-    assert list(selected_temperature.columns) == expected_columns
-
-
-def test_select_temperature_preserves_rows(selected_temperature, eight_days):
-    expected_shape = (eight_days.shape[0], 2)
-    assert selected_temperature.shape == expected_shape
 
 
 @pytest.fixture
