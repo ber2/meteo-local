@@ -1,3 +1,4 @@
+import os
 import datetime as dt
 from typing import Callable
 
@@ -33,7 +34,9 @@ def extract(lookback: int = 1) -> None:
     dates = [dt.date.today() - dt.timedelta(k) for k in range(1, lookback + 1)]
     for date in dates:
         df_one_day = only_one_day(df, date)
-        df_one_day.to_parquet(f"data/meteolocal-{date.isoformat()}.parquet")
+        path = "data/" + date.strftime("%Y/%m")
+        os.system(f"mkdir -p {path}")
+        df_one_day.to_parquet(f"{path}/meteolocal-{date.isoformat()}.parquet")
 
 
 if __name__ == "__main__":
