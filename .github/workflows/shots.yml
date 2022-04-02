@@ -3,6 +3,7 @@ name: Take meteo snapshot
 on:
   schedule:
     - cron: '17 3 * * *'
+  workflow_dispatch:
 
 jobs:
   snapshot:
@@ -19,10 +20,9 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
-    - name: Fetch today's data
+    - name: Fetch yesterday's data
       run: |
-        mkdir -p data
-        python etl.py
+        poetry run python etl.py
     - name: Commit new data & push
       run: |-
         git config user.name "Automated"
