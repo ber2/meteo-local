@@ -3,7 +3,14 @@ from unittest import mock
 
 import pytest
 
-from meteo_local.transformer import only_one_day, current_temperature, current_humidity, current_pressure, current_wind, current_rain
+from meteo_local.transformer import (
+    only_one_day,
+    current_temperature,
+    current_humidity,
+    current_pressure,
+    current_wind,
+    current_rain,
+)
 
 
 @pytest.mark.parametrize(
@@ -56,10 +63,9 @@ def current_hum(eight_days):
     [
         ("perc", 82.0),
         ("max", 98.0),
-        ("max_time", dt.time(11,0)),
+        ("max_time", dt.time(11, 0)),
         ("min", 75.0),
-        ("min_time", dt.time(16,30)),
-
+        ("min_time", dt.time(16, 30)),
     ],
 )
 def test_current_humidity_values(name, expected_value, current_hum):
@@ -68,7 +74,7 @@ def test_current_humidity_values(name, expected_value, current_hum):
 
 @pytest.fixture
 def current_pres(eight_days):
-    return current_pressure(eight_days, dt.date(2022,3,12))
+    return current_pressure(eight_days, dt.date(2022, 3, 12))
 
 
 @pytest.mark.parametrize(
@@ -77,9 +83,9 @@ def current_pres(eight_days):
         ("pressure", 1013.4),
         ("trend", 1.1000000000000227),
         ("max", 1014.3),
-        ("max_time", dt.time(0,0)),
+        ("max_time", dt.time(0, 0)),
         ("min", 1011.2),
-        ("min_time", dt.time(5,45)),
+        ("min_time", dt.time(5, 45)),
     ],
 )
 def test_current_pressure_values(name, expected_value, current_pres):
@@ -106,7 +112,7 @@ def test_current_wind_values(name, expected_value, current_wi):
 
 @pytest.fixture
 def current_rn(eight_days):
-    return current_rain(eight_days, dt.date(2022,3,12))
+    return current_rain(eight_days, dt.date(2022, 3, 12))
 
 
 @pytest.mark.parametrize(

@@ -15,16 +15,22 @@ class Plotter:
 
     def _ts_line_plot(self, y: str, y_label: str, range_y: Optional[List[int]] = None):
         labels = {"timestamp": "Data", y: y_label}
-        return st.plotly_chart(px.line(self.df, x="timestamp", y=y, labels=labels, range_y=range_y))
+        return st.plotly_chart(
+            px.line(self.df, x="timestamp", y=y, labels=labels, range_y=range_y)
+        )
 
     def temperature_line_plot(self):
-        return self._ts_line_plot("temperature", "Temperatura (C)", range_y=[-5.0, 45.0])
+        return self._ts_line_plot(
+            "temperature", "Temperatura (C)", range_y=[-5.0, 45.0]
+        )
 
     def humidity_line_plot(self):
         return self._ts_line_plot("humidity", "Humitat (%)", range_y=[0.0, 100.0])
 
     def pressure_line_plot(self):
-        return self._ts_line_plot("pressure", "Pressió atmosfèrica (hPa)", range_y=[980.0, 1030.0])
+        return self._ts_line_plot(
+            "pressure", "Pressió atmosfèrica (hPa)", range_y=[980.0, 1030.0]
+        )
 
     def rain_hourly_bar_plot(self, date: dt.date = dt.date.today()):
         d = self.df.copy()

@@ -98,4 +98,3 @@ col2.metric("Velocitat", f"10 km/h")
 col3.metric("Velocitat màxima", f"30 km/h")
 
 plotter.windspeed_line_plot()
-
