@@ -18,6 +18,7 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
+        poetry shell
     - name: Pytest
       run: |
         pytest -v --cov=meteo_local
