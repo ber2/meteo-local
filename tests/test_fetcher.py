@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from meteobeguda.fetcher import (
+from meteo_local.fetcher import (
     URL_TWO_DAYS,
     URL_EIGHT_DAYS,
     get_last_two_days,
@@ -27,7 +27,7 @@ def test_fetcher_returns_none_if_status_code_not_200(url, method, requests_mock)
     "url,method",
     [(URL_TWO_DAYS, get_last_two_days), (URL_EIGHT_DAYS, get_last_eight_days)],
 )
-def test_fetcher_forms_request_to_meteobeguda(url, method, requests_mock):
+def test_fetcher_forms_request_to_meteo_local(url, method, requests_mock):
     requests_mock.get(url, content=b"some content")
     assert b"some content" == method()
     assert requests_mock.call_count == 1
