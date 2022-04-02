@@ -133,7 +133,7 @@ def current_humidity(df: pd.DataFrame, date=dt.date.today()) -> CurrentHumidity:
     s_last = last_entry("timestamp", df_today)
     mmd = get_max_min_time("timestamp", "humidity", df_today)
     return CurrentHumidity(
-        s_last.humidity, mmd.max, mmd.max_time, mmd.min, mmd.min_time
+        s_last.humidity, int(mmd.max), mmd.max_time, int(mmd.min), mmd.min_time
     )
 
 
