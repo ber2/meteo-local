@@ -66,7 +66,7 @@ class CurrentPressure:
 @dataclass
 class CurrentWind:
     direction_str: str
-    direction_deg: str
+    direction_deg: int
     speed: float
     maxspeed: float
 

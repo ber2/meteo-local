@@ -3,16 +3,16 @@ import datetime as dt
 import streamlit as st
 import pandas as pd
 
-from meteobeguda.fetcher import get_last_eight_days
-from meteobeguda.parser import parse_response, parse_timestamps
-from meteobeguda.transformer import (
+from meteo_local.fetcher import get_last_eight_days
+from meteo_local.parser import parse_response, parse_timestamps
+from meteo_local.transformer import (
     current_temperature,
     current_humidity,
     current_pressure,
     current_wind,
     current_rain,
 )
-from meteobeguda.plots import Plotter
+from meteo_local.plots import Plotter
 
 
 def load_local() -> pd.DataFrame:
@@ -23,7 +23,7 @@ def load_local() -> pd.DataFrame:
     return df
 
 
-@st.cache(ttl=3600)
+# @st.cache(ttl=3600)
 def load_live() -> pd.DataFrame:
     raw = get_last_eight_days()
     df = parse_response(raw)
@@ -51,6 +51,19 @@ col3.metric(f"Màxima {hour_str(current_temp.max_time)}", f"{current_temp.max:.1
 col4.metric("Sensació", f"{current_temp.feels_like:.1f} C")
 
 plotter.temperature_line_plot()
+
+st.header("Pluja")
+
+rain = current_rain(data)
+
+col1, col2, col3 = st.columns(3)
+col1.metric("Avui", f"{rain.today:.1f} mm")
+col2.metric("Ahir", f"{rain.yesterday:.1f} mm")
+col3.metric("Aquesta setmana", f"{rain.this_week:.1f} mm")
+col1.metric("Intensitat", f"{rain.intensity} mm / hora")
+
+plotter.rain_hourly_bar_plot()
+plotter.rain_daily_bar_plot()
 
 st.header("Humitat")
 current_hum = current_humidity(data)
@@ -84,16 +97,5 @@ col1.metric("Direcció", f"{wind.direction_deg} º")
 col2.metric("Velocitat", f"10 km/h")
 col3.metric("Velocitat màxima", f"30 km/h")
 
-st.header("Pluja")
+plotter.windspeed_line_plot()
 
-rain = current_rain(data)
-
-col1, col2, col3 = st.columns(3)
-col1.metric("Avui", f"{rain.today:.1f} mm")
-col2.metric("Ahir", f"{rain.yesterday:.1f} mm")
-col3.metric("Aquesta setmana", f"{rain.this_week} mm")
-col1.metric("Intensitat", f"{rain.intensity} mm / hora")
-
-plotter.rain_hourly_bar_plot()
-plotter.rain_hourly_bar_plot(dt.date.today() - dt.timedelta(1))
-plotter.rain_daily_bar_plot()

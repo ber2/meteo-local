@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "meteobeguda"
+name = "meteo-local"
 version = "0.1.0"
 description = ""
 authors = ["Alberto Camara <camara@protonmail.com>"]

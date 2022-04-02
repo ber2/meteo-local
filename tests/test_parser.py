@@ -8,7 +8,7 @@ import hypothesis.extra.numpy as st_np
 import pandas as pd
 import numpy as np
 
-from meteobeguda.parser import COLUMNS, parse_response, parse_timestamps
+from meteo_local.parser import COLUMNS, parse_response, parse_timestamps
 
 
 @pytest.fixture
